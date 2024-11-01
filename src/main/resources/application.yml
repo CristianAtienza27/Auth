@@ -1,0 +1,189 @@
+logging:
+  file:
+    # output to a temp_folder/file
+    name: ${java.io.tmpdir}/stripe.log
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss.SSS,Europe/Madrid
+  level:
+    org:
+      hibernate: WARN 
+      es:
+      northgate:
+        docutenintegration: TRACE # Aplica a todos los subpaquetes dentro de 'docutenintegration'
+  logback:
+    rollingpolicy: 
+      clean-history-on-start: true
+
+server:
+  port: 8090
+
+spring:
+  application:
+    name: auth
+  config:
+    activate:
+      on-profile: dev
+  jackson:
+    serialization:
+      wrap-root-value: false
+  security:
+    user:
+      name: sec_user_dev
+      password: sec_passwd_dev
+    admin:
+      name: sec_admin_dev
+      password: sec_passwd_dev
+  retry:
+    maxAttemps: 4
+
+  datasource:
+    products:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      url: jdbc:sqlserver://;serverName=localhost;databaseName=auth
+      username: sa
+      password: 1q2w3e4r*
+      jpa:
+        show-sql: true
+        properties:
+          hibernate:
+            '[generate_statistics]': true
+            '[format_sql]': true
+            dialect: org.hibernate.dialect.SQLServerDialect
+            jdbc:
+              '[batch_size]': 20
+              '[order_inserts]': true
+              '[order_updates]': true
+        hibernate:
+          ddl-auto: update
+          naming:
+            physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+app:
+  jwtSecret: miSecretoSuperSecreto
+  jwtExpirationInMs: 3600000  # Duración del token en milisegundos (1 día en este ejemplo).
+
+  url:
+    email-verify: "http://localhost:8080/api/email/verify/"
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /doc/api-docs
+  swagger-ui:
+    enabled: true
+    path: /doc/swagger-ui-custom.html
+    operationsSorter: method
+    swagger-server-url: http://localhost:${server.port}/
+
+management:
+  metrics:
+    enable:
+      jvm: true
+      logback: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+        # Enable the health and env endpoints
+        #include: env,health
+  endpoint:
+    info:
+      enabled: true
+  health:
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+---
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: auth
+  config:
+    activate:
+      on-profile: main
+  jackson:
+    serialization:
+      wrap-root-value: false
+  security:
+    user:
+      name: sec_user_dev
+      password: sec_passwd_dev
+    admin:
+      name: sec_admin_dev
+      password: sec_passwd_dev
+  retry:
+    maxAttemps: 4
+
+  datasource:
+    products:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      url: jdbc:sqlserver://;serverName=localhost;databaseName=auth
+      username: sa
+      password: 1q2w3e4r*
+      jpa:
+        show-sql: true
+        properties:
+          hibernate:
+            '[generate_statistics]': true
+            '[format_sql]': true
+            dialect: org.hibernate.dialect.SQLServerDialect
+            jdbc:
+              '[batch_size]': 20
+              '[order_inserts]': true
+              '[order_updates]': true
+        hibernate:
+          ddl-auto: update
+          naming:
+            physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+app:
+  jwtSecret: miSecretoSuperSecreto
+  jwtExpirationInMs: 3600000  # Duración del token en milisegundos (1 día en este ejemplo).
+
+  url:
+    url-email-verify: "http://localhost:8080/api/email/verify/"
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /doc/api-docs
+  swagger-ui:
+    enabled: true
+    path: /doc/swagger-ui-custom.html
+    operationsSorter: method
+    swagger-server-url: http://localhost:${server.port}/
+
+management:
+  metrics:
+    enable:
+      jvm: true
+      logback: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+        # Enable the health and env endpoints
+        #include: env,health
+  endpoint:
+    info:
+      enabled: true
+  health:
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true

@@ -1,0 +1,10 @@
+variables:
+  ACR_IMAGE_NAME: "condiciones-cliente"
+  #ACR_NAMESPACE: "projectname/"
+  ARGOCD_APPLICATION_NAME: "condiciones-cliente"
+  #DEBUG_ENABLED: "true"
+
+include:
+  - project: 'arquetipos/gitlab-ci'
+    ref: main
+    file: '.gitlab-ci-template.yml'

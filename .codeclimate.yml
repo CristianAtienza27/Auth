@@ -1,0 +1,12 @@
+version: "2"
+plugins:
+  sonar-java:
+    enabled: true
+    config:
+      sonar.java.source: "11"
+      tests_patterns:
+        - src/test/**
+      #minimum_severity: critical   # Possible values are: info, minor, major (default), critical, blocker
+  pmd:
+    enabled: true
+    #channel: "beta"

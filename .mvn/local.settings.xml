@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd">
+  <servers>
+    <server>
+      <id>gitlab-maven</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Private-Token</name>
+            <value>${env.GITLAB_PRIVATE_TOKEN}</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server>
+    <server>
+      <id>gitlab-arq-maven</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Private-Token</name>
+            <value>${env.GITLAB_PRIVATE_TOKEN}</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server> 
+  </servers>
+  <profiles>
+    <profile>
+      <id>maven-repository</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <repositories>
+        <repository>
+          <id>gitlab-maven</id>
+          <url>${env.GITLAB_API_V4_URL}/projects/${env.GITLAB_PROJECT_ID}/packages/maven</url>
+        </repository>
+        <repository>
+          <id>gitlab-arq-maven</id>
+          <url>${env.GITLAB_API_V4_URL}/projects/${env.GITLAB_ARQ_PROJECT_ID}/packages/maven</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+</settings>

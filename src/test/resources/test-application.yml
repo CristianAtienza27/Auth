@@ -1,0 +1,6 @@
+docuten:
+  login:
+    api_key: 7f3c19ba-3438-426e-b876-181df842944b
+  use:
+    update_state_url: https://sandbox.docuten.com/api/v1/received_invoices/
+    get_pdf: /pdf
